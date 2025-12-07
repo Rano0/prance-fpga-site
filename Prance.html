@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8" />
+    <title>致新國際科技 - FPGA 超低延遲交易平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+            --primary: #c21807;
+            --primary-dark: #8e1205;
+            --bg: #f5f7fa;
+            --text: #222;
+            --muted: #666;
+            --border: #e0e4ea;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft JhengHei", sans-serif;
+            background: #fff;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.4rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.08em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Layout helpers */
+        .section {
+            padding: 4rem 1.5rem;
+        }
+
+        .section.alt {
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            margin: 0 0 0.8rem;
+            line-height: 1.3;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            border-left: 4px solid var(--primary);
+            padding-left: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            padding: 1.2rem 1.4rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(194,24,7,0.06);
+            color: var(--primary-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        ul {
+            margin: 0.4rem 0 0.8rem 1.2rem;
+            padding: 0;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 4.5rem 1.5rem 3.5rem;
+            background: radial-gradient(circle at top left, #ffe5e0 0, #fff 45%, #f5f7fa 100%);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            gap: 2rem;
+        }
+
+        @media (min-width: 850px) {
+            .hero-inner {
+                grid-template-columns: 3fr 2fr;
+                align-items: center;
+            }
+        }
+
+        .hero-title {
+            font-size: 2.1rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--muted);
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: rgba(255,255,255,0.8);
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem 1.4rem;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+
+        .hero-highlight {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .hero-aside {
+            border-radius: 16px;
+            padding: 1.4rem 1.6rem;
+            background: #fff;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .hero-aside h3 {
+            margin-bottom: 0.4rem;
+        }
+
+        .hero-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .metric {
+            min-width: 110px;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .metric-value {
+            font-weight: 700;
+        }
+
+        /* Flow diagram */
+        .flow-wrapper {
+            margin-top: 1.5rem;
+        }
+
+        .flow-legend {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 0.8rem;
+        }
+
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        @media (min-width: 900px) {
+            .flow-diagram {
+                flex-direction: row;
+                align-items: stretch;
+            }
+        }
+
+        .flow-column {
+            flex: 1 1 0;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 1rem 1rem 1.1rem;
+            position: relative;
+        }
+
+        @media (min-width: 900px) {
+            .flow-column + .flow-column::before {
+                content: "→";
+                position: absolute;
+                left: -0.7rem;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 1.2rem;
+                color: var(--muted);
+            }
+        }
+
+        .flow-column h3 {
+            margin-bottom: 0.4rem;
+        }
+
+        .flow-group {
+            margin-top: 0.6rem;
+            padding-top: 0.6rem;
+            border-top: 1px dashed var(--border);
+        }
+
+        .flow-box-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .flow-box-desc {
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 2fr 3fr;
+            }
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.5rem 0.6rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .footer {
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-align: center;
+            border-top: 1px solid rgba(0,0,0,0.04);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-inner">
+            <div class="logo">致新國際科技</div>
+            <nav class="nav-links">
+                <a href="#overview">產品總覽</a>
+                <a href="#why-fpga">為何 FPGA</a>
+                <a href="#architecture">系統架構</a>
+                <a href="#clients">客戶實績</a>
+                <a href="#process">導入流程</a>
+                <a href="#contact">聯絡我們</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div>
+                <div class="tag">FPGA 超低延遲證券交易平台</div>
+                <h1 class="hero-title">把演算法放進晶片，實現奈秒等級交易速度。</h1>
+                <p class="hero-subtitle">
+                    致新國際科技自 2000 年成立以來，專注於 FPGA based 交易系統與證券監控平台，
+                    幫助券商、大戶與交易所建置高效穩定的低延遲交易環境。
+                </p>
+                <div class="hero-badges">
+                    <div class="hero-badge">Tick-to-Trade Pipeline</div>
+                    <div class="hero-badge">C/C++ High-Level 開發</div>
+                    <div class="hero-badge">多市場 / 多商品支援</div>
+                    <div class="hero-badge">行動 App / Web 一站式方案</div>
+                </div>
+                <p class="hero-highlight">
+                    使用熟悉的 C/C++ 撰寫策略，由我們的工具鏈自動轉成 FPGA 硬體邏輯，
+                    無需具備 FPGA 專業背景，即可享受高頻交易等級的效能。
+                </p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">預約技術說明</a>
+                    <a href="#overview" class="btn btn-outline">查看產品架構</a>
+                </div>
+            </div>
+            <aside class="hero-aside">
+                <h3>專注金融科技超過 20 年</h3>
+                <p class="muted">
+                    從台灣證券交易所線上監視系統，到壽險與券商的大戶交易與行動服務，我們提供完整的 FPGA 交易與監控解決方案。
+                </p>
+                <div class="hero-metrics">
+                    <div class="metric">
+                        <div class="metric-label">成立</div>
+                        <div class="metric-value">民國 89 年</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">實收資本額</div>
+                        <div class="metric-value">NTD 2.2 億</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">開發團隊</div>
+                        <div class="metric-value">軟體 / FPGA 各 12 人</div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="section">
+        <div class="container">
+            <h2>產品總覽：完整 FPGA 交易解決方案</h2>
+            <p>
+                我們提供從行情接收、策略計算、風控到下單的一站式 FPGA Ultra Low Latency 解決方案，
+                並延伸到 Web 與行動 App，看盤、下單與帳務查詢一次到位。
+            </p>
+            <div class="grid grid-3" style="margin-top: 1.5rem;">
+                <div class="card">
+                    <h3>FPGA 核心交易系統</h3>
+                    <ul>
+                        <li>DMA 大戶交易系統（內建風控與主機連線）</li>
+                        <li>策略交易系統（量化 / 高頻策略）</li>
+                        <li>交易中介系統（券商與子系統整合）</li>
+                        <li>證期權套利系統（跨商品 / 跨市場）</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>證券監控與中台</h3>
+                    <ul>
+                        <li>台灣證券交易所線上監視系統實績（共 13 個次系統）</li>
+                        <li>異常行為偵測與事件告警</li>
+                        <li>即時風險監控儀表板</li>
+                        <li>歷史資料與稽核查詢</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>行動商務服務平台 App</h3>
+                    <ul>
+                        <li>證券、期權 iOS / Android 看盤下單 App</li>
+                        <li>大戶 / 法人專用交易 App</li>
+                        <li>Web 即時帳務與報表查詢</li>
+                        <li>支援多帳號、多商品切換</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY FPGA -->
+    <section id="why-fpga" class="section alt">
+        <div class="container">
+            <h2>為什麼選擇 FPGA 在交易系統中？</h2>
+            <div class="grid grid-2">
+                <div>
+                    <h3>極致延遲表現</h3>
+                    <p>
+                        一般 CPU 必須逐筆指令執行，FPGA 則以硬體邏輯平行處理行情、風控與下單流程，
+                        可將延遲從微秒級進一步壓低到奈秒等級，特別適合高頻與 DMA 交易。
+                    </p>
+                    <h3>Tick-to-Trade 全程硬體化</h3>
+                    <p>
+                        行情解碼、Order Book 建構、策略判斷、風控與封包送出都在 FPGA Pipeline 中完成，
+                        只將非即時性處理保留在軟體端，達到效能與彈性的最佳平衡。
+                    </p>
+                </div>
+                <div>
+                    <h3>維持熟悉的開發模式</h3>
+                    <p>
+                        使用 C/C++ 撰寫策略，透過我們的工具鏈轉成 FPGA 邏輯，不需直接撰寫 RTL，
+                        也不必接觸低階硬體細節，讓既有量化團隊可以快速上手。
+                    </p>
+                    <h3>多市場、多商品支援</h3>
+                    <p>
+                        彈性的 Feed Handler 與 Order Entry 模組，可快速對接不同交易所協定（含 FIX），
+                        支援股票、期貨、選擇權等商品，配合客戶需求擴充。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARCHITECTURE & FLOW -->
+    <section id="architecture" class="section">
+        <div class="container">
+            <h2>系統架構與資料流</h2>
+            <p>
+                整體架構分為「市場與來源」、「FPGA Tick-to-Trade 核心」以及「軟體與行動平台」三個層次，
+                自多來源行情與委託開始，經由 FPGA 完成解碼、策略與風控，再送往交易所並回饋至帳務與前端介面。
+            </p>
+
+            <div class="grid grid-2" style="margin-top: 1.5rem;">
+                <div class="card">
+                    <h3>三層架構說明</h3>
+                    <ol>
+                        <li>
+                            <strong>市場與客戶端</strong><br />
+                            來自各交易所與資訊供應商的多路行情，以及 DMA 大戶、券商自營部、
+                            行動 / Web App 的委託與參數輸入。
+                        </li>
+                        <li>
+                            <strong>FPGA Tick-to-Trade 核心</strong><br />
+                            高速網路介面與 TCP Offload、Feed Handler 解碼、
+                            Order Book 引擎、策略引擎與即時風控，
+                            最終產生符合各交易所規範的委託電文。
+                        </li>
+                        <li>
+                            <strong>軟體後台與行動平台</strong><br />
+                            交易 API 負責設定策略參數與監控 FPGA 狀態，帳務中台提供即時損益與報表，
+                            Web / App 讓大戶與一般投資人都能享有低延遲體驗。
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="flow-wrapper">
+                    <div class="flow-legend">
+                        下圖為重新設計的資料流示意圖，將 Tick-to-Trade 流程拆成三個模組區塊，
+                        方便視覺化展示與後續延伸。
+                    </div>
+                    <div class="flow-diagram">
+                        <!-- Markets -->
+                        <div class="flow-column">
+                            <h3>市場與來源</h3>
+                            <div class="flow-group">
+                                <div class="flow-box-title">M1 各交易所</div>
+                                <div class="flow-box-desc">
+                                    TWSE / TAIFEX / 海外市場<br>
+                                    撮合結果與市況回報
+                                </div>
+                            </div>
+                            <div class="flow-group">
+                                <div class="flow-box-title">M2 行情供應商</div>
+                                <div class="flow-box-desc">
+                                    多路行情來源、協定解碼前置<br>
+                                    Tick-by-Tick 報價
+                                </div>
+                            </div>
+                            <div class="flow-group">
+                                <div class="flow-box-title">M3 客戶委託</div>
+                                <div class="flow-box-desc">
+                                    DMA 大戶 / 自營部 / 行動 App<br>
+                                    交易參數與風控限制設定
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FPGA core -->
+                        <div class="flow-column">
+                            <h3>FPGA Tick-to-Trade 核心</h3>
+                            <div class="flow-group">
+                                <div class="flow-box-title">F1 高速網路介面</div>
+                                <div class="flow-box-desc">
+                                    MAC / TCP Offload<br>
+                                    專為低延遲優化
+                                </div>
+                            </div>
+                            <div class="flow-group">
+                                <div class="flow-box-title">F2 Feed Handler 與 Order Book</div>
+                                <div class="flow-box-desc">
+                                    行情協定解碼、建構多商品簿價結構
+                                </div>
+                            </div>
+                            <div class="flow-group">
+                                <div class="flow-box-title">F3 策略與即時風控</div>
+                                <div class="flow-box-desc">
+                                    C/C++ 轉換之 FPGA 策略邏輯<br>
+                                    額度 / 商品 / 風險檢查
+                                </div>
+                            </div>
+                            <div class="flow-group">
+                                <div class="flow-box-title">F4 委託產生器</div>
+                                <div class="flow-box-desc">
+                                    產生交易所 / 券商主機專用電文<br>
+                                    將委託送往撮合系統
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Software & Apps -->
+                        <div class="flow-column">
+                            <h3>軟體與行動平台</h3>
+                            <div class="flow-group">
+                                <div class="flow-box-title">S1 交易後台服務</div>
+                                <div class="flow-box-desc">
+                                    策略參數設定、FPGA 狀態監控、統計資料蒐集
+                                </div>
+                            </div>
+                            <div class="flow-group">
+                                <div class="flow-box-title">S2 帳務與報表中台</div>
+                                <div class="flow-box-desc">
+                                    即時損益、歷史對帳單、風險曝險報表
+                                </div>
+                            </div>
+                            <div class="flow-group">
+                                <div class="flow-box-title">S3 Web / 行動 App</div>
+                                <div class="flow-box-desc">
+                                    看盤、下單、帳務查詢<br>
+                                    提供給大戶與一般投資人使用
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow-legend" style="margin-top:0.6rem;">
+                        資料流向：M1 / M2 行情 → FPGA F1~F4 → 交易所 / 券商主機 → 回饋至 S1~S3 前台與中台。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIENTS -->
+    <section id="clients" class="section alt">
+        <div class="container">
+            <h2>客戶與實績</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3>交易所與監控系統</h3>
+                    <p>
+                        自 2000 年起，我們長期深耕台灣金融市場，
+                        參與台灣證券交易所多項線上監視系統建置與維護。
+                    </p>
+                    <ul>
+                        <li>線上監視系統實績（共 13 個次系統）</li>
+                        <li>異常報價 / 異常交易行為偵測</li>
+                        <li>即時風險事件通知與告警</li>
+                        <li>歷史追蹤與稽核報表</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>壽險與券商客戶</h3>
+                    <p class="muted">
+                        以下僅列舉部分類型，實際客戶名單可依行銷政策調整呈現方式：
+                    </p>
+                    <ul>
+                        <li>壽險公司：新光人壽等</li>
+                        <li>券商：元大證券、統一證券、國泰證券、康和證券、華南永昌證券等</li>
+                        <li>應用場景：DMA 大戶交易、證期權自營套利、行動看盤交易 App</li>
+                        <li>支援多帳號、多交易市場整合</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="section">
+        <div class="container">
+            <h2>導入與開發流程：三個步驟，把策略搬進 FPGA</h2>
+            <div class="grid grid-3">
+                <div class="card">
+                    <div class="tag">Step 1</div>
+                    <h3>撰寫並驗證策略</h3>
+                    <p>
+                        使用 C/C++ 在我們提供的策略範本上撰寫交易邏輯，
+                        輸入包含 Order Book 狀態、解碼後行情與自訂參數。
+                    </p>
+                    <p>
+                        先在模擬或回測環境驗證績效與風控邏輯，確保策略穩定可靠。
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="tag">Step 2</div>
+                    <h3>一鍵編譯到 FPGA</h3>
+                    <p>
+                        透過我們的工具鏈在您的伺服器上完成 HLS 編譯與 Bitstream 產生，
+                        策略程式碼不需離開內部環境，滿足資訊安全要求。
+                    </p>
+                    <p>
+                        支援反覆調整與重新部署，讓團隊可以持續優化策略。
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="tag">Step 3</div>
+                    <h3>整合既有系統並啟動交易</h3>
+                    <p>
+                        使用 C++ / REST API 將 FPGA 核心與既有風控、前台或 OMS 整合，
+                        後台可監控 FPGA 狀態、策略統計與風險參數。
+                    </p>
+                    <p>
+                        Web / App 介面可供大戶與一般投資人使用，享受同樣的低延遲體驗。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DELIVERABLES & STRENGTH -->
+    <section class="section alt">
+        <div class="container">
+            <h2>你會得到什麼 & 技術團隊優勢</h2>
+            <div class="grid grid-2">
+                <div>
+                    <h3>交付內容（Deliverables）</h3>
+                    <ul>
+                        <li><strong>高階語言的 FPGA 策略開發框架</strong><br>
+                            以 C/C++ 為主的開發介面與範本，封裝行情、帳務與風控模組，讓團隊專注在交易邏輯。</li>
+                        <li><strong>最佳化 FPGA IP 與 Tick-to-Trade Pipeline</strong><br>
+                            高效能的網路、Order Book、風控與下單模組，僅將延遲敏感部分放入 FPGA，其餘保留在軟體層。</li>
+                        <li><strong>導入顧問與教育訓練</strong><br>
+                            協助團隊撰寫適合 FPGA 的 C++ 程式，提供效能調校與最佳實務。</li>
+                        <li><strong>客製化開發與長期合作</strong><br>
+                            依 DMA、大戶自營、期權或跨市場套利等需求客製，配合市場擴充與協定更新。</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>技術與管理優勢</h3>
+                    <ul>
+                        <li>FPGA 晶片交易處理與網路協定實作經驗豐富。</li>
+                        <li>物件導向 C/C++ 軟體開發十年以上經驗。</li>
+                        <li>iOS / Android 行動 App 架構與元件設計能力。</li>
+                        <li>產品品質穩定，已在金融產業長期運行驗證。</li>
+                        <li>直覺介面與視覺設計，降低交易人員學習成本。</li>
+                        <li>彈性架構，功能服務易於擴充與客製。</li>
+                        <li>累積多個大型金融專案導入與專案管理經驗。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT (簡化僅顯示公司資訊與聯絡方式) -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>聯絡我們：讓交易速度再往前一大步</h2>
+            <p>
+                想導入 FPGA 交易平台、建置 DMA 大戶系統，或把既有策略搬到硬體上？
+                歡迎透過以下聯絡方式與我們聯繫，我們將安排專人與您討論需求與導入規劃。
+            </p>
+
+            <div class="card" style="max-width: 520px; margin-top: 1.5rem;">
+                <h3>公司資訊</h3>
+                <p>
+                    致新國際科技股份有限公司<br>
+                    台北市松江路 152 號 8 樓 807 室<br><br>
+                    聯絡人：劉純杏 Cindy<br>
+                    電話：(02)25621157
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        © 致新國際科技股份有限公司 — FPGA Based Ultra Low Latency Trading Solutions.
+    </footer>
+</body>
+</html>
